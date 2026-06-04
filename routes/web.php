@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\LogoutController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ Route::get('/', function () {
 
 Route::get('/auth/login', [LoginController::class, 'index'])->name('login');
 Route::post('/auth/login', [LoginController::class, 'store'])->name('login.store');
+Route::post('/auth/logout', [LogoutController::class, 'store'])->name('logout.store');
 
 Route::get('/auth/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/auth/register', [RegisterController::class, 'store'])->name('register.store');

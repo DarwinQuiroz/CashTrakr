@@ -4,6 +4,7 @@
 
 @section('auth-content')
     <form class="mt-14 space-y-5" method="post" action="{{ route('register.store') }}" novalidate>
+        @csrf
         <div class="space-y-2">
             <label class="font-bold text-2xl block" for="name">Nombre</label>
 
