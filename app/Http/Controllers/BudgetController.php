@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Budget;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BudgetRequest;
 use Illuminate\Routing\Attributes\Controllers\Authorize;
@@ -48,9 +48,12 @@ class BudgetController extends Controller
     /**
      * Display the specified resource.
      */
+    #[Authorize('view', 'budget')]
     public function show(Budget $budget)
     {
-        //
+        return Inertia::render('Budgets/Show', [
+            'budget' => $budget
+        ]);
     }
 
     /**
