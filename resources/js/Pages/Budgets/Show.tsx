@@ -10,6 +10,7 @@ import { formatCurrency, formatDate } from "@/utils";
 import { ProgressBar } from "@/Components/ProgressBar";
 import ExpenseDropdown from "@/Components/ExpenseDropdown";
 import DeleteExpenseModal from "@/Components/DeleteExpenseModal";
+import CashTrackrAgent from "@/Components/CashTrackrAgent";
 
 type Props = {
     budget: Budget;
@@ -152,8 +153,6 @@ export default function Show({ budget, categories, spent }: Props) {
                                                     <ExpenseDropdown
                                                         expense={expense}
                                                     />
-
-                                                    <DeleteExpenseModal />
                                                 </td>
                                             </tr>
                                         ))}
@@ -176,8 +175,9 @@ export default function Show({ budget, categories, spent }: Props) {
                 )}
             </section>
 
+            <CashTrackrAgent budgetId={budget.id} />
             <ExpenseModal />
-
+            <DeleteExpenseModal />
             <ToastContainer />
         </>
     );
