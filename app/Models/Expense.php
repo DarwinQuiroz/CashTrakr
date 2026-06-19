@@ -6,11 +6,12 @@ use App\ExpenseCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 #[Fillable(['budget_id', 'name', 'amount', 'category'])]
 class Expense extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     protected $casts = [
         'category' => ExpenseCategory::class
