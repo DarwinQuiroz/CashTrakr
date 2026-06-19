@@ -43,7 +43,7 @@ class BudgetController extends Controller
 
         $budget = Auth::user()->budgets()->create($data);
 
-        return redirect()->route('dashboard')->with('success', 'Presupuesto creado correctamente');
+        return redirect()->route('budgets.show', $budget)->with('success', 'Presupuesto creado correctamente');
     }
 
     /**
@@ -88,7 +88,7 @@ class BudgetController extends Controller
     public function update(BudgetRequest $request, Budget $budget)
     {
         $budget->update($request->validated());
-        return redirect()->route('dashboard')->with('success', 'Presupuesto actualizado correctamente');
+        return redirect()->route('budgets.show', $budget)->with('success', 'Presupuesto actualizado correctamente');
     }
 
     /**

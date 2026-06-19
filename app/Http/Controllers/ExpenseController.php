@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Expense;
-use Illuminate\Http\Request;
-use App\Http\Requests\ExpenseRequest;
 use App\Models\Budget;
+use App\Models\Expense;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\ExpenseRequest;
+use Illuminate\Routing\Attributes\Controllers\Authorize;
 
 class ExpenseController extends Controller
 {
@@ -14,6 +15,8 @@ class ExpenseController extends Controller
      */
     public function store(ExpenseRequest $request, Budget $budget)
     {
+        Gate::authorize("create", [Expense::class, $budget]);
+
         $data = $request->validated();
 
         $budget->expenses()->create($data);
@@ -25,6 +28,7 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    #[Authorize('update', 'expense')]
     public function update(ExpenseRequest $request, Budget $budget, Expense $expense)
     {
         $expense->update($request->validated());
@@ -36,6 +40,7 @@ class ExpenseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    #[Authorize('delete', 'expense')]
     public function destroy(Budget $budget, Expense $expense)
     {
         $expense->delete();
