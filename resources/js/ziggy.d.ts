@@ -68,7 +68,7 @@ declare module 'ziggy-js' {
             "binding": "id"
         }
     ],
-    "destroy.update": [
+    "expenses.destroy": [
         {
             "name": "budget",
             "required": true,
@@ -76,6 +76,13 @@ declare module 'ziggy-js' {
         },
         {
             "name": "expense",
+            "required": true,
+            "binding": "id"
+        }
+    ],
+    "budgets.chat": [
+        {
+            "name": "budget",
             "required": true,
             "binding": "id"
         }

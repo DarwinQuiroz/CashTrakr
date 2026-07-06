@@ -6,6 +6,11 @@ declare module '@inertiajs/core' {
             flash: {
                 success?: string;
             }
+            user: {
+                id: number;
+                name: string;
+                email: string;
+            }
         }
     }
 }
