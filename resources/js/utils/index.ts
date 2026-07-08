@@ -5,7 +5,9 @@ export function formatCurrency(amount: number) {
     }).format(amount)
 }
 
-export function formatDate(date: string): string {
+export function formatDate(date: string | null) {
+    if(!date) return
+
     return new Intl.DateTimeFormat('es-EC', {
         day: 'numeric',
         month: 'long',
