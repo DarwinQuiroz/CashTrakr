@@ -33,7 +33,32 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function swap(Request $request, string $plan) {}
+    public function swap(Request $request, string $plan)
+    {
+        $prices = [
+            'monthly' => config('services.stripe.price_ai_monthly'),
+            'yearly' => config('services.stripe.price_ai_yearly'),
+        ];
+
+        abort_unless($prices[$plan], 400);
+
+        $user = $request->user();
+        $subscription = $user->subscription('default');
+        $currentPlan = $user->subscribedToPrice(config('services.stripe.price_ai_yearly'), 'default') ? 'yearly' : 'monthly';
+
+        if ($currentPlan === 'yearly' && $plan === 'monthly') {
+            return back()->with('error', 'No es posible cambiar de plan anual a mensual.');
+        }
+
+        if ($currentPlan === $plan) {
+            return back()->with('error', 'Ya estás en este plan.');
+        }
+
+        $subscription->swap($prices[$plan]);
+        cache()->forget("stripe.next_billing.{$subscription->id}");
+
+        return redirect()->route('subscription.manage')->with('success', 'Bienvenido(a) al paln anual, disfruta de tu ahorro.');
+    }
 
     public function cancel(Request $request) {}
 
