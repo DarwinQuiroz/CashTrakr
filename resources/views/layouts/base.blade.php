@@ -31,9 +31,9 @@
 
             <nav class="flex flex-col lg:flex-row items-center gap-4">
                 @if (Auth::check())
-                    <x-dropdown-menu />
-                    <p class="text-white text-xl">Hola: {{ Auth::user()->name }}</p>
                     <x-subscription-badge />
+                    <p class="text-white text-xl">Hola: {{ Auth::user()->name }}</p>
+                    <x-dropdown-menu />
                 @else
                     @if (Route::has('login'))
                         <a href="{{ route('login') }}" class="text-white font-bold uppercase p-2">

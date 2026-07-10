@@ -1,8 +1,8 @@
-import SubscriptionStatus from "@/Components/SubscriptionStatus";
+import SubscriptionStatus from "@/Components/subscriptions/SubscriptionStatus";
 import { Head, usePage } from "@inertiajs/react";
 import { Subscription } from "@/types/subscription";
-import SubscriptionDowngrade from "./SubscriptionDowngrade";
-import SubscriptionUpgrade from "./SubscriptionUpgrade";
+import SubscriptionDowngrade from "../../Components/subscriptions/SubscriptionDowngrade";
+import SubscriptionUpgrade from "../../Components/subscriptions/SubscriptionUpgrade";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 
