@@ -29,6 +29,7 @@ class SubscriptionController extends Controller
                 'on_grace_period' => $subscription->onGracePeriod(),
                 'next_billing_date' => $nextBillingDate,
                 'ends_at' => $subscription->ends_at?->toIso8601String(),
+                'cancel' => $subscription->canceled(),
             ],
         ]);
     }
@@ -67,7 +68,12 @@ class SubscriptionController extends Controller
         return back()->with('success', 'Tu suscripción ha sido cancelada, mantendrás el acceso hasta el final del periodo pagado.');
     }
 
-    public function resume(Request $request) {}
+    public function resume(Request $request)
+    {
+        $request->user()->subscription('default')->resume();
+
+        return back()->with('success', '¡Bienvenido(a) de vuelta! Tu suscripción está activa.');
+    }
 
     private function getNextBillingDate(Subscription $subscription): ?string
     {

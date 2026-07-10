@@ -1,11 +1,10 @@
 import SubscriptionStatus from "@/Components/subscriptions/SubscriptionStatus";
-import { Head, usePage } from "@inertiajs/react";
 import { Subscription } from "@/types/subscription";
 import SubscriptionDowngrade from "../../Components/subscriptions/SubscriptionDowngrade";
 import SubscriptionUpgrade from "../../Components/subscriptions/SubscriptionUpgrade";
-import { toast, ToastContainer } from "react-toastify";
-import { useEffect } from "react";
 import SubscriptionCancellation from "@/Components/subscriptions/SubscriptionCancellation";
+import SubscriptionResume from "@/Components/subscriptions/SubscriptionResume";
+import AppLayout from "@/Layouts/AppLayout";
 
 type Props = {
     subscription: Subscription;
@@ -20,21 +19,12 @@ const statusColors = {
 };
 
 export default function ManageSubscription({ subscription }: Props) {
-    const { flash } = usePage().props;
-
     const title = "Administra tu suscripción";
 
     const isYearly = subscription.plan === "yearly";
 
-    useEffect(() => {
-        if (flash.success) toast.success(flash.success);
-        if (flash.error) toast.error(flash.error);
-    }, [flash]);
-
     return (
-        <>
-            <Head title={title} />
-
+        <AppLayout title={title}>
             <main className="max-w-3-xl mx-auto py-12 px-4">
                 <h1 className="text-3xl font-black mb-2">{title}</h1>
                 <p className="text-gray-500 mb-8 text-lg">
@@ -50,7 +40,7 @@ export default function ManageSubscription({ subscription }: Props) {
                 />
 
                 {subscription.on_grace_period ? (
-                    <p>Suscripción cancelada...</p>
+                    <SubscriptionResume ends_at={subscription.ends_at} />
                 ) : (
                     <>
                         {!isYearly && <SubscriptionUpgrade />}
@@ -69,8 +59,6 @@ export default function ManageSubscription({ subscription }: Props) {
                     </>
                 )}
             </main>
-
-            <ToastContainer />
-        </>
+        </AppLayout>
     );
 }
