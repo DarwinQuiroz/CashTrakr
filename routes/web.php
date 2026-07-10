@@ -12,6 +12,8 @@ use App\Http\Controllers\TicketScanController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SubscriptionCheckoutController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\UpdatePasswordController;
+use App\Http\Controllers\UpdateProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
@@ -40,6 +42,12 @@ Route::post('/email/verification-notificacion', function (Request $request) {
 
     return back()->with('success', 'Correo de verificación enviado correctamente.');
 })->middleware(['auth', 'throttle:1,1'])->name('verification.send');
+
+
+Route::get('/settings/profile', [UpdateProfileController::class, 'edit'])->name('settings.profile');
+Route::put('/settings/profile', [UpdateProfileController::class, 'update'])->name('settings.profile.update');
+Route::get('/settings/password', [UpdatePasswordController::class, 'edit'])->name('settings.password');
+Route::put('/settings/password', [UpdatePasswordController::class, 'update'])->name('settings.password.update');
 
 Route::get('/dashboard', [BudgetController::class, 'index'])->name('dashboard');
 Route::get('/budgets/create', [BudgetController::class, 'create'])->name('budgets.create');

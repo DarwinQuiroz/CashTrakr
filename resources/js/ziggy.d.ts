@@ -25,6 +25,10 @@ declare module 'ziggy-js' {
     ],
     "verification.notice": [],
     "verification.send": [],
+    "settings.profile": [],
+    "settings.profile.update": [],
+    "settings.password": [],
+    "settings.password.update": [],
     "dashboard": [],
     "budgets.create": [],
     "budgets.store": [],
@@ -119,6 +123,7 @@ declare module 'ziggy-js' {
     ],
     "subscription.cancel": [],
     "subscription.resume": [],
+    "billing": [],
     "storage.local": [
         {
             "name": "path",
