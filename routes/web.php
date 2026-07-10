@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController as AuthForgotPasswordController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BudgetChatController;
 use App\Http\Controllers\TicketScanController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\SubscriptionCheckoutController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UpdatePasswordController;
@@ -18,7 +20,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/auth/login', [LoginController::class, 'index'])->name('login');
 Route::post('/auth/login', [LoginController::class, 'store'])->name('login.store');
@@ -43,6 +45,10 @@ Route::post('/email/verification-notificacion', function (Request $request) {
     return back()->with('success', 'Correo de verificación enviado correctamente.');
 })->middleware(['auth', 'throttle:1,1'])->name('verification.send');
 
+Route::get('/auth/forgot-password', [AuthForgotPasswordController::class, 'index'])->name('password.request');
+Route::post('/auth/forgot-password', [AuthForgotPasswordController::class, 'store'])->name('password.email');
+Route::get('/auth/reset-password/{token}', [ResetPasswordController::class, 'index'])->name('password.reset');
+Route::post('/auth/reset-password', [ResetPasswordController::class, 'store'])->name('password.update');
 
 Route::get('/settings/profile', [UpdateProfileController::class, 'edit'])->name('settings.profile');
 Route::put('/settings/profile', [UpdateProfileController::class, 'update'])->name('settings.profile.update');

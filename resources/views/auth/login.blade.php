@@ -4,8 +4,8 @@
 
 @section('auth-content')
 
-    @if(session('error'))
-        <x-alert type="error" :message="session('error')"/>
+    @if (session('error'))
+        <x-alert type="error" :message="session('error')" />
     @endif
 
     <form class="mt-14 space-y-5" action="{{ route('login.store') }}" method="POST" novalidate>
@@ -13,40 +13,27 @@
         <div class="flex flex-col gap-2">
             <label class="font-bold text-2xl" for="email">Email</label>
 
-            <input 
-                id="email" 
-                type="email" 
-                placeholder="Email de Registro"
-                class="w-full border border-gray-300 p-3 rounded-lg" 
-                name="email" 
-                value="{{ old('email') }}"
-                tabindex="1" 
-            />
+            <input id="email" type="email" placeholder="Email de Registro"
+                class="w-full border border-gray-300 p-3 rounded-lg" name="email" value="{{ old('email') }}"
+                tabindex="1" />
         </div>
 
-        <x-input-error field="email"/>
+        <x-input-error field="email" />
 
         <div class="flex flex-col gap-2">
             <div class="flex  items-center justify-between">
                 <label class="font-bold text-2xl">Password</label>
-                <a href="#" class="text-indigo-950" tabindex="3">¿Olvidaste tu Contraseña?</a>
+                <a href="{{ route('password.request') }}" class="text-indigo-950" tabindex="3">¿Olvidaste tu
+                    Contraseña?</a>
             </div>
-            <input 
-                type="password" 
-                placeholder="Password de Registro" 
-                class="w-full border border-gray-300 p-3 rounded-lg"
-                name="password" 
-                tabindex="2" 
-            />
+            <input type="password" placeholder="Password de Registro" class="w-full border border-gray-300 p-3 rounded-lg"
+                name="password" tabindex="2" />
         </div>
 
         <x-input-error field="password" />
 
-        <input 
-            type="submit" 
-            value='Iniciar Sesión'
-            class="bg-purple-950 hover:bg-purple-800 w-full p-3 rounded-lg text-white font-bold  text-xl cursor-pointer" 
-        />
+        <input type="submit" value='Iniciar Sesión'
+            class="bg-purple-950 hover:bg-purple-800 w-full p-3 rounded-lg text-white font-bold  text-xl cursor-pointer" />
     </form>
 
 @endsection
