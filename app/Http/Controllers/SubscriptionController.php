@@ -60,7 +60,12 @@ class SubscriptionController extends Controller
         return redirect()->route('subscription.manage')->with('success', 'Bienvenido(a) al paln anual, disfruta de tu ahorro.');
     }
 
-    public function cancel(Request $request) {}
+    public function cancel(Request $request)
+    {
+        $request->user()->subscription('default')->cancel();
+
+        return back()->with('success', 'Tu suscripción ha sido cancelada, mantendrás el acceso hasta el final del periodo pagado.');
+    }
 
     public function resume(Request $request) {}
 
@@ -103,7 +108,7 @@ class SubscriptionController extends Controller
         if ($subscription->onGracePeriod()) {
             return [
                 'text' => 'Cancelada',
-                'description' => 'Acceso hasta',
+                'description' => 'Acceso hasta el ',
                 'date' => $subscription->ends_at?->toIso8601String(),
                 'color' => 'orange',
             ];
